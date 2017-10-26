@@ -195,9 +195,10 @@ section {
   text-decoration: blink;
   -webkit-animation-name: blinker;
 	-webkit-animation-duration: 0.6s;
-	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-iteration-count:5;
 	-webkit-animation-timing-function:ease-in-out;
 	-webkit-animation-direction: alternate;
+  -webkit-animation-fill-mode: forwards;
 }
 #stack .msg.overflow {
   top: 1rem;
@@ -245,14 +246,15 @@ section {
 }
 @media (min-width: 900px) {
   #queue .msg.overflow {
-    right: -10rem;
-    left: auto;
+    right: auto;
+    left: -10rem;
     top: 50%;
     transform: translateY(-50%);
   }
   #queue .msg.underflow {
     bottom: auto;
-    left: -10rem;
+    left: auto;
+    right: -10rem;
     top: 50%;
     transform: translateY(-50%);
   }

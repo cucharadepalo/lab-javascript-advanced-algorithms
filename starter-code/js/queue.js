@@ -1,10 +1,14 @@
 var queue;
 var queueElement;
 var queueElementTxt;
-var qTakeBtn = $("#queueTake");
-var qAddBtn = $("#queueAdd");
-var qOverflowAlert = $("#queue .overflow");
-var qUnderflowAlert = $("#queue .underflow");
+var qBtns = {
+  add: $("#queueAdd"),
+  take: $("#queueTake")
+};
+var qAlerts = {
+  overflow: $("#queue .overflow"),
+  underflow: $("#queue .underflow")
+};
 var enqueueElement = function() {
   $('#queueInput').val('');
   queueElement = '<div><span>';
@@ -19,7 +23,7 @@ var dequeueElement = function() {
 $(document).ready(function() {
   queue = new QueueDataStructure();
 
-  $("#queueAdd").on('click', function() {
+  $(qBtns.add).on('click', function() {
     if ($('#queueInput').val() == '') {
       queueElementTxt = queue.queueControl.length + 1;
     } else {
@@ -27,25 +31,24 @@ $(document).ready(function() {
     }
     if (queue.enqueue(queueElementTxt) == 'Queue Overflow') {
       disable(this);
-      qOverflowAlert.toggleClass('hide');
-
+      qAlerts.overflow.toggleClass('hide');
     } else {
       enqueueElement();
     }
     if (queue.queueControl.length == 1) {
-      enable(qTakeBtn);
-      qUnderflowAlert.addClass('hide');
+      enable(qBtns.take);
+      qAlerts.underflow.addClass('hide');
     }
   });
 
-  $("#queueTake").on('click', function() {
-    if (queue.queueControl.length < queue.MAX_SIZE && qAddBtn.prop('disabled') && !qOverflowAlert.hasClass('hide')) {
-      enable(qAddBtn);
-      qOverflowAlert.addClass('hide');
+  $(qBtns.take).on('click', function() {
+    if (queue.queueControl.length < queue.MAX_SIZE && qBtns.add.prop('disabled') && !qAlerts.overflow.hasClass('hide')) {
+      enable(qBtns.add);
+      qAlerts.overflow.addClass('hide');
     }
     if (queue.dequeue() == 'Queue Underflow') {
       disable(this);
-      qUnderflowAlert.toggleClass('hide');
+      qAlerts.underflow.toggleClass('hide');
     } else {
       dequeueElement();
     }

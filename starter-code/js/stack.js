@@ -1,10 +1,14 @@
 var stack;
 var stackElement;
 var stackElementTxt;
-var sTakeBtn = $("#stackTake");
-var sAddBtn = $("#stackAdd");
-var sOverflowAlert = $("#stack .overflow");
-var sUnderflowAlert = $("#stack .underflow");
+var sBtns = {
+  take: $("#stackTake"),
+  add: $("#stackAdd")
+};
+var sAlerts = {
+  overflow: $("#stack .overflow"),
+  underflow: $("#stack .underflow")
+};
 var pushElement = function() {
   $('#stackInput').val('');
   stackElement = '<div><span>';
@@ -21,7 +25,7 @@ function stackUnderflow() {
 $(document).ready(function() {
   stack = new StackDataStructure();
 
-  $("#stackAdd").on('click', function() {
+  $(sBtns.add).on('click', function() {
     if ($('#stackInput').val() == '') {
       stackElementTxt = stack.stackControl.length + 1;
     } else {
@@ -29,24 +33,24 @@ $(document).ready(function() {
     }
     if (stack.push(stackElementTxt) == 'Stack Overflow') {
       disable(this);
-      sOverflowAlert.toggleClass('hide');
+      sAlerts.overflow.toggleClass('hide');
     } else {
       pushElement();
     }
     if (stack.stackControl.length == 1) {
-      enable(sTakeBtn);
-      sUnderflowAlert.addClass('hide');
+      enable(sBtns.take);
+      sAlerts.underflow.addClass('hide');
     }
   });
 
-  $("#stackTake").on('click', function() {
-    if (stack.stackControl.length < stack.MAX_SIZE && sAddBtn.prop('disabled') && !sOverflowAlert.hasClass('hide')) {
-      enable(sAddBtn);
-      sOverflowAlert.addClass('hide');
+  $(sBtns.take).on('click', function() {
+    if (stack.stackControl.length < stack.MAX_SIZE && sBtns.add.prop('disabled') && !sAlerts.overflow.hasClass('hide')) {
+      enable(sBtns.add);
+      sAlerts.overflow.addClass('hide');
     }
     if (stack.pop() == 'Stack Underflow') {
       disable(this);
-      sUnderflowAlert.toggleClass('hide');
+      sAlerts.underflow.toggleClass('hide');
     } else {
       popElement();
     }
