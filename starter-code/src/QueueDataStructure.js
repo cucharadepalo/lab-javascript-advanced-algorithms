@@ -4,19 +4,21 @@ function QueueDataStructure() {
 }
 
 QueueDataStructure.prototype.isEmpty = function() {
-  if (this.queueControl.length == 0) {
-    return true;
-  } else {
-    return false;
-  }
+  return (this.queueControl.length == 0) ? true : false;
+  // if (this.queueControl.length == 0) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
 };
 
 QueueDataStructure.prototype.canEnqueue = function() {
-  if (this.queueControl.length < this.MAX_SIZE) {
-    return true;
-  } else {
-    return false;
-  }
+  return (this.queueControl.length < this.MAX_SIZE) ? true : false;
+  // if (this.queueControl.length < this.MAX_SIZE) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
 };
 
 QueueDataStructure.prototype.enqueue = function(e) {

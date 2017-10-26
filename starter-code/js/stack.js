@@ -15,6 +15,9 @@ var pushElement = function() {
 var popElement = function() {
   $('#stack .elements div:last-child').remove();
 };
+function stackUnderflow() {
+
+}
 $(document).ready(function() {
   stack = new StackDataStructure();
 
@@ -24,12 +27,11 @@ $(document).ready(function() {
     } else {
       stackElementTxt = $('#stackInput').val();
     }
-    if (stack.push(stackElementTxt)) {
-      pushElement();
-    }
-    if (stack.stackControl.length == stack.MAX_SIZE) {
+    if (stack.push(stackElementTxt) == 'Stack Overflow') {
       disable(this);
       sOverflowAlert.toggleClass('hide');
+    } else {
+      pushElement();
     }
     if (stack.stackControl.length == 1) {
       enable(sTakeBtn);
@@ -38,16 +40,15 @@ $(document).ready(function() {
   });
 
   $("#stackTake").on('click', function() {
-    if (stack.pop() != 'Stack Underflow') {
-      popElement();
-    }
-    if (stack.stackControl.length < stack.MAX_SIZE) {
+    if (stack.stackControl.length < stack.MAX_SIZE && sAddBtn.prop('disabled') && !sOverflowAlert.hasClass('hide')) {
       enable(sAddBtn);
       sOverflowAlert.addClass('hide');
     }
-    if (stack.isEmpty()) {
+    if (stack.pop() == 'Stack Underflow') {
       disable(this);
       sUnderflowAlert.toggleClass('hide');
+    } else {
+      popElement();
     }
   });
 });

@@ -25,12 +25,12 @@ $(document).ready(function() {
     } else {
       queueElementTxt = $('#queueInput').val();
     }
-    if (queue.enqueue(queueElementTxt)) {
-      enqueueElement();
-    }
-    if (queue.queueControl.length == queue.MAX_SIZE) {
+    if (queue.enqueue(queueElementTxt) == 'Queue Overflow') {
       disable(this);
       qOverflowAlert.toggleClass('hide');
+
+    } else {
+      enqueueElement();
     }
     if (queue.queueControl.length == 1) {
       enable(qTakeBtn);
@@ -39,16 +39,15 @@ $(document).ready(function() {
   });
 
   $("#queueTake").on('click', function() {
-    if (queue.dequeue() != 'Queue Underflow') {
-      dequeueElement();
-    }
-    if (queue.queueControl.length < queue.MAX_SIZE) {
+    if (queue.queueControl.length < queue.MAX_SIZE && qAddBtn.prop('disabled') && !qOverflowAlert.hasClass('hide')) {
       enable(qAddBtn);
       qOverflowAlert.addClass('hide');
     }
-    if (queue.isEmpty()) {
+    if (queue.dequeue() == 'Queue Underflow') {
       disable(this);
       qUnderflowAlert.toggleClass('hide');
+    } else {
+      dequeueElement();
     }
   });
 });

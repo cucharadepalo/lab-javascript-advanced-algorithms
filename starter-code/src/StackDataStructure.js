@@ -4,19 +4,21 @@ function StackDataStructure() {
 }
 
 StackDataStructure.prototype.isEmpty = function() {
-  if (this.stackControl.length == 0) {
-    return true;
-  } else {
-    return false;
-  }
+  return (this.stackControl.length == 0) ? true : false;
+  // if (this.stackControl.length == 0) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
 };
 
 StackDataStructure.prototype.canPush = function() {
-  if (this.stackControl.length < this.MAX_SIZE) {
-    return true;
-  } else {
-    return false;
-  }
+  return (this.stackControl.length < this.MAX_SIZE) ? true : false;
+  // if (this.stackControl.length < this.MAX_SIZE) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
 };
 
 StackDataStructure.prototype.push = function(e) {
